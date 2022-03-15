@@ -1,6 +1,6 @@
 {
     "appid": "00b3dc3a-ea6e-47a8-82a5-036f05d83863",
-    "name": "Canary",
+    "name": "Canary - Canary for SOAR",
     "description": "This app supports ingestion and investigative actions on the ThinkST Canary API Service",
     "type": "siem",
     "product_vendor": "ThinkST",
