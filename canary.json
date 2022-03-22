@@ -2,7 +2,7 @@
     "appid": "00b3dc3a-ea6e-47a8-82a5-036f05d83863",
     "name": "Canary",
     "description": "This app supports ingestion and investigative actions on the ThinkST Canary API Service",
-    "type": "siem",
+    "type": "information",
     "product_vendor": "ThinkST",
     "logo": "logo_canary.svg",
     "logo_dark": "logo_canary_dark.svg",
@@ -10,10 +10,10 @@
     "product_version_regex": ".*",
     "publisher": "Splunk",
     "license": "Copyright (c) 2019 Splunk Inc.",
-    "app_version": "1.0.4",
+    "app_version": "1.0.5",
     "utctime_updated": "2022-01-07T20:44:39.000000Z",
     "package_name": "phantom_canary",
-    "main_module": "canary_connector.pyc",
+    "main_module": "canary_connector.py",
     "min_phantom_version": "4.5.15922",
     "app_wizard_version": "1.0.0",
     "configuration": {
@@ -123,6 +123,69 @@
             "render": {
                 "type": "table"
             },
+            "versions": "EQ(*)"
+        },
+        {
+            "action": "add ip to ignore list",
+            "identifier": "add_ignore_list",
+            "description": "Add new IP to Canary global Ignore List",
+            "type": "contain",
+            "read_only": false,
+            "parameters": {
+                "ip_address": {
+                    "description": "IP Address to add to global Ignore List",
+                    "data_type": "string",
+                    "required": true,
+                    "contains": [
+                        "ip"
+                    ],
+                    "value_list": [],
+                    "order": 0
+                }
+            },
+            "output": [],
+            "versions": "EQ(*)"
+        },
+        {
+            "action": "remove ip from ignore list",
+            "identifier": "remove_ignore_list",
+            "description": "Remove IP from Canary global IgnoreList",
+            "type": "contain",
+            "read_only": false,
+            "parameters": {
+                "ip_address": {
+                    "description": "IP Address to remove from global Ignore List",
+                    "data_type": "string",
+                    "required": true,
+                    "contains": [
+                        "ip"
+                    ],
+                    "value_list": [],
+                    "order": 0
+                }
+            },
+            "output": [],
+            "versions": "EQ(*)"
+        },
+        {
+            "action": "test if ip on ignore list",
+            "identifier": "test_ignore_list",
+            "description": "Test if IP has been globally ignored",
+            "type": "investigate",
+            "read_only": true,
+            "parameters": {
+                "ip_address": {
+                    "description": "IP Address to test on global Ignore List",
+                    "data_type": "string",
+                    "required": true,
+                    "contains": [
+                        "ip"
+                    ],
+                    "value_list": [],
+                    "order": 0
+                }
+            },
+            "output": [],
             "versions": "EQ(*)"
         },
         {

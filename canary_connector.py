@@ -183,6 +183,74 @@ class CanaryConnector(BaseConnector):
         # For now return Error with a message, in case of success we don't set the message, but use the summary
         # return action_result.set_status(phantom.APP_ERROR, "Action not yet implemented")
 
+    def _handle_is_ip_ignored(self, param):
+
+        # Add an action result object to self (BaseConnector) to represent the action for this param
+        action_result = self.add_action_result(ActionResult(dict(param)))
+
+        endpoint = '/settings/is_ip_whitelisted'
+
+        payload = {
+            'src_ip': param['ip_address']
+        }
+
+        self.save_progress("Connecting to endpoint")
+        # Make rest call
+
+        ret_val, response = self._make_rest_call(endpoint, action_result, headers=None, method="get", data=payload)
+
+        if response['is_ip_ignored']:
+            return action_result.set_status(phantom.APP_SUCCESS, "IP is on global IgnoreList")
+        elif not response['is_ip_ignored']:
+            return action_result.set_status(phantom.APP_SUCCESS, "IP is NOT on global IgnoreList")
+        elif not response['is_whitelist_enabled']:
+            return action_result.set_status(phantom.APP_SUCCESS, "IgnoreList is NOT enabled!")
+        else:
+            return action_result.set_status(phantom.APP_ERROR, "Error while communicating with Canary API")
+
+    def _handle_remove_ignored_ip(self, param):
+
+        # Add an action result object to self (BaseConnector) to represent the action for this param
+        action_result = self.add_action_result(ActionResult(dict(param)))
+
+        endpoint = '/settings/whitelisting/remove_whitelist_ip'
+
+        payload = {
+            'src_ip': param['ip_address']
+        }
+
+        self.save_progress("Connecting to endpoint")
+        # Make rest call
+
+        ret_val, response = self._make_rest_call(endpoint, action_result, headers=None, method="post", data=payload)
+
+        if response['result'] == "success":
+            return action_result.set_status(phantom.APP_SUCCESS, "Successfully removed IP from global IgnoreList")
+        else:
+            return action_result.set_status(phantom.APP_ERROR, "Error while communicating with Canary API")
+
+    def _handle_add_ignore_list(self, param):
+
+        # Add an action result object to self (BaseConnector) to represent the action for this param
+        action_result = self.add_action_result(ActionResult(dict(param)))
+
+        endpoint = '/settings/whitelist_ip_port'
+
+        # Add user data
+        payload = {
+            'src_ip': param['ip_address']
+        }
+
+        self.save_progress("Connecting to endpoint")
+        # Make rest call
+
+        ret_val, response = self._make_rest_call(endpoint, action_result, headers=None, method="post", data=payload)
+
+        if response['result'] == "success":
+            return action_result.set_status(phantom.APP_SUCCESS, "Successfully added IP to global IgnoreList")
+        else:
+            return action_result.set_status(phantom.APP_ERROR, "Error while communicating with Canary API")
+
     def _handle_list_incidents(self, param):
 
         # Add an action result object to self (BaseConnector) to represent the action for this param
