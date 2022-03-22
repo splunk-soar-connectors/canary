@@ -419,6 +419,15 @@ class CanaryConnector(BaseConnector):
         if action_id == 'test_connectivity':
             ret_val = self._handle_test_connectivity(param)
 
+        elif action_id == 'add_ignore_list':
+            ret_val = self._handle_on_poll(param)
+
+        elif action_id == 'remove_ignored_ip':
+            ret_val = self._handle_on_poll(param)
+
+        elif action_id == 'is_ip_ignored':
+            ret_val = self._handle_on_poll(param)
+
         elif action_id == 'on_poll':
             ret_val = self._handle_on_poll(param)
 
