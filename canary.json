@@ -126,7 +126,7 @@
             "versions": "EQ(*)"
         },
         {
-            "action": "add ip to ignore list",
+            "action": "add ip ignore_list",
             "identifier": "add_ignore_list",
             "description": "Add new IP to Canary global Ignore List",
             "type": "contain",
@@ -147,8 +147,8 @@
             "versions": "EQ(*)"
         },
         {
-            "action": "remove ip from ignore list",
-            "identifier": "remove_ignore_list",
+            "action": "remove ip ignore_list",
+            "identifier": "remove_ignored_ip",
             "description": "Remove IP from Canary global IgnoreList",
             "type": "contain",
             "read_only": false,
@@ -168,8 +168,8 @@
             "versions": "EQ(*)"
         },
         {
-            "action": "test if ip on ignore list",
-            "identifier": "test_ignore_list",
+            "action": "test ip ignore_list",
+            "identifier": "is_ip_ignored",
             "description": "Test if IP has been globally ignored",
             "type": "investigate",
             "read_only": true,

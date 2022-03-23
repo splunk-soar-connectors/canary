@@ -68,7 +68,7 @@ class CanaryConnector(BaseConnector):
         message = "Status Code: {0}. Data from server:\n{1}\n".format(status_code,
                 error_text)
 
-        message = message.replace(u'{', '{{').replace(u'}', '}}')
+        message = message.replace('{', '{{').replace('}', '}}')
 
         return RetVal(action_result.set_status(phantom.APP_ERROR, message), None)
 
@@ -86,7 +86,7 @@ class CanaryConnector(BaseConnector):
 
         # You should process the error returned in the json
         message = "Error from server. Status Code: {0} Data from server: {1}".format(
-                r.status_code, r.text.replace(u'{', '{{').replace(u'}', '}}'))
+                r.status_code, r.text.replace('{', '{{').replace('}', '}}'))
 
         return RetVal(action_result.set_status(phantom.APP_ERROR, message), None)
 
@@ -420,13 +420,13 @@ class CanaryConnector(BaseConnector):
             ret_val = self._handle_test_connectivity(param)
 
         elif action_id == 'add_ignore_list':
-            ret_val = self._handle_on_poll(param)
+            ret_val = self._handle_add_ignore_list(param)
 
         elif action_id == 'remove_ignored_ip':
-            ret_val = self._handle_on_poll(param)
+            ret_val = self._handle_remove_ignored_ip(param)
 
         elif action_id == 'is_ip_ignored':
-            ret_val = self._handle_on_poll(param)
+            ret_val = self._handle_is_ip_ignored(param)
 
         elif action_id == 'on_poll':
             ret_val = self._handle_on_poll(param)
@@ -515,13 +515,13 @@ if __name__ == '__main__':
             r2 = requests.post(login_url, verify=False, data=data, headers=headers)
             session_id = r2.cookies['sessionid']
         except Exception as e:
-            print ("Unable to get session id from the platform. Error: " + str(e))
+            print(("Unable to get session id from the platform. Error: " + str(e)))
             exit(1)
 
     with open(args.input_test_json) as f:
         in_json = f.read()
         in_json = json.loads(in_json)
-        print(json.dumps(in_json, indent=4))
+        print((json.dumps(in_json, indent=4)))
 
         connector = CanaryConnector()
         connector.print_progress_message = True
@@ -531,6 +531,6 @@ if __name__ == '__main__':
             connector._set_csrf_info(csrftoken, headers['Referer'])
 
         ret_val = connector._handle_action(json.dumps(in_json), None)
-        print (json.dumps(json.loads(ret_val), indent=4))
+        print((json.dumps(json.loads(ret_val), indent=4)))
 
     exit(0)
