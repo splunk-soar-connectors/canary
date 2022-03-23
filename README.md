@@ -22,7 +22,7 @@ VARIABLE | REQUIRED | TYPE | DESCRIPTION
 [test connectivity](#action-test-connectivity) - Validate the asset configuration for connectivity using supplied configuration  
 [add ip ignore_list](#action-add-ip-ignore_list) - Add an IP to the Canary's global IgnoreList  
 [remove ip ignore_list](#action-remove-ip-ignore_list) - Remove an IP from the Canary's global IgnoreList   
-[test ip ignore_list](#action-test-ip-ignore_list) - Test if an IP is on the Canary's global IgnoreList 
+[test ip ignore_list](#action-test-ip-ignore_list) - Test if an IP is on the Canary's global IgnoreList   
 [on poll](#action-on-poll) - Ingest unacknowledged incidents from Canary  
 [update incident](#action-update-incident) - Acknowledge existing Canary incident  
 [list incidents](#action-list-incidents) - Get the list of existing Canary Incidents  
