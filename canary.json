@@ -8,7 +8,7 @@
     "logo_dark": "logo_canary_dark.svg",
     "product_name": "Canary",
     "product_version_regex": ".*",
-    "publisher": "Splunk",
+    "publisher": "Splunk Community",
     "license": "Copyright (c) 2019-2022 Splunk Inc.",
     "app_version": "1.0.5",
     "utctime_updated": "2022-01-07T20:44:39.000000Z",
