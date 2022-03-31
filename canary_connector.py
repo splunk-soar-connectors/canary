@@ -284,9 +284,9 @@ class CanaryConnector(BaseConnector):
         if incidentState == "unacknowledged":
             endpoint = "/incidents/unacknowledged"
 
-        self.save_progress("Connecting to endpoint")
-        # make rest call
 
+        # make rest call
+        self.save_progress("Connecting to endpoint")
         ret_val, response = self._make_rest_call(endpoint, action_result, headers=None, method="get")
 
         if (phantom.is_fail(ret_val)):
