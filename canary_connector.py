@@ -184,6 +184,10 @@ class CanaryConnector(BaseConnector):
 
     def _handle_is_ip_ignored(self, param):
 
+        # Implement the handler here
+        # use self.save_progress(...) to send progress messages back to the platform
+        self.save_progress("In action handler for: {0}".format(self.get_action_identifier()))
+
         # Add an action result object to self (BaseConnector) to represent the action for this param
         action_result = self.add_action_result(ActionResult(dict(param)))
 
@@ -209,6 +213,10 @@ class CanaryConnector(BaseConnector):
 
     def _handle_remove_ignored_ip(self, param):
 
+        # Implement the handler here
+        # use self.save_progress(...) to send progress messages back to the platform
+        self.save_progress("In action handler for: {0}".format(self.get_action_identifier()))
+
         # Add an action result object to self (BaseConnector) to represent the action for this param
         action_result = self.add_action_result(ActionResult(dict(param)))
 
@@ -229,6 +237,10 @@ class CanaryConnector(BaseConnector):
             return action_result.set_status(phantom.APP_ERROR, "Error while communicating with Canary API")
 
     def _handle_add_ignore_list(self, param):
+
+        # Implement the handler here
+        # use self.save_progress(...) to send progress messages back to the platform
+        self.save_progress("In action handler for: {0}".format(self.get_action_identifier()))
 
         # Add an action result object to self (BaseConnector) to represent the action for this param
         action_result = self.add_action_result(ActionResult(dict(param)))
@@ -251,6 +263,10 @@ class CanaryConnector(BaseConnector):
             return action_result.set_status(phantom.APP_ERROR, "Error while communicating with Canary API")
 
     def _handle_list_incidents(self, param):
+
+        # Implement the handler here
+        # use self.save_progress(...) to send progress messages back to the platform
+        self.save_progress("In action handler for: {0}".format(self.get_action_identifier()))
 
         # Add an action result object to self (BaseConnector) to represent the action for this param
         action_result = self.add_action_result(ActionResult(dict(param)))
