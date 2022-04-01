@@ -391,6 +391,7 @@ class CanaryConnector(BaseConnector):
 
         incident = param['incident']
         params = {'incident': incident}
+        self.save_progress("Connecting to endpoint")
 
         incidentState = param['incident_state']
         if incidentState == "acknowledge":
