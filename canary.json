@@ -162,6 +162,10 @@
                     ]
                 },
                 {
+                    "data_path": "action_result.data.*",
+                    "data_type": "string"
+                },
+                {
                     "data_path": "action_result.message",
                     "data_type": "string"
                 },
@@ -172,6 +176,17 @@
                 {
                     "data_path": "summary.total_objects_successful",
                     "data_type": "numeric"
+                },
+                {
+                    "data_path": "action_result.summary",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.parameter.ip_address",
+                    "data_type": "string",
+                    "contains": [
+                        "ip"
+                    ]
                 }
             ],
             "render": {
@@ -209,6 +224,10 @@
                     ]
                 },
                 {
+                    "data_path": "action_result.data.*",
+                    "data_type": "string"
+                },
+                {
                     "data_path": "action_result.message",
                     "data_type": "string"
                 },
@@ -219,6 +238,17 @@
                 {
                     "data_path": "summary.total_objects_successful",
                     "data_type": "numeric"
+                },
+                {
+                    "data_path": "action_result.summary",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.parameter.ip_address",
+                    "data_type": "string",
+                    "contains": [
+                        "ip"
+                    ]
                 }
             ],
             "render": {
@@ -256,6 +286,10 @@
                     ]
                 },
                 {
+                    "data_path": "action_result.data.*",
+                    "data_type": "string"
+                },
+                {
                     "data_path": "action_result.message",
                     "data_type": "string"
                 },
@@ -266,6 +300,17 @@
                 {
                     "data_path": "summary.total_objects_successful",
                     "data_type": "numeric"
+                },
+                {
+                    "data_path": "action_result.summary",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.parameter.ip_address",
+                    "data_type": "string",
+                    "contains": [
+                        "ip"
+                    ]
                 }
             ],
             "render": {

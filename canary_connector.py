@@ -284,7 +284,6 @@ class CanaryConnector(BaseConnector):
         if incidentState == "unacknowledged":
             endpoint = "/incidents/unacknowledged"
 
-
         # make rest call
         self.save_progress("Connecting to endpoint")
         ret_val, response = self._make_rest_call(endpoint, action_result, headers=None, method="get")
