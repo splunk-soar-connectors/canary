@@ -1,12 +1,12 @@
 [comment]: # "Auto-generated SOAR connector documentation"
-# Canary
+# Canary for SOAR
 
-Publisher: Splunk  
-Connector Version: 1\.0\.3  
+Publisher: Splunk Community  
+Connector Version: 2\.0\.0  
 Product Vendor: ThinkST  
 Product Name: Canary  
 Product Version Supported (regex): "\.\*"  
-Minimum Product Version: 4\.5\.15922  
+Minimum Product Version: 5\.1\.0  
 
 This app supports ingestion and investigative actions on the ThinkST Canary API Service
 
@@ -20,11 +20,11 @@ VARIABLE | REQUIRED | TYPE | DESCRIPTION
 
 ### Supported Actions  
 [test connectivity](#action-test-connectivity) - Validate the asset configuration for connectivity using supplied configuration  
-[add ip ignore_list](#action-add-ip-ignore_list) - Add an IP to the Canary's global IgnoreList  
-[remove ip ignore_list](#action-remove-ip-ignore_list) - Remove an IP from the Canary's global IgnoreList   
-[test ip ignore_list](#action-test-ip-ignore_list) - Test if an IP is on the Canary's global IgnoreList   
 [on poll](#action-on-poll) - Ingest unacknowledged incidents from Canary  
 [update incident](#action-update-incident) - Acknowledge existing Canary incident  
+[add ip ignorelist](#action-add-ip-ignorelist) - Add new IP to Canary global Ignore List  
+[remove ip ignorelist](#action-remove-ip-ignorelist) - Remove IP from Canary global IgnoreList  
+[test ip ignorelist](#action-test-ip-ignorelist) - Test if IP has been globally ignored  
 [list incidents](#action-list-incidents) - Get the list of existing Canary Incidents  
 
 ## action: 'test connectivity'
@@ -38,55 +38,6 @@ No parameters are required for this action
 
 #### Action Output
 No Output  
-
-## action: 'add ip ignore_list'
-Add an IP to the Canary's global IgnoreList
-
-Type: **contain**  
-Read only: **False**
-
-#### Action Parameters
-PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
---------- | -------- | ----------- | ---- | --------
-**ip** |  required  | IP Address to add to global IgnoreList | string | 
-
-#### Action Output
-DATA PATH | TYPE | CONTAINS
---------- | ---- | --------
-action\_result\.status | string | 
-
-## action: 'remove ip ignore_list'
-Remove an IP from the Canary's global IgnoreList
-
-Type: **contain**  
-Read only: **False**
-
-#### Action Parameters
-PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
---------- | -------- | ----------- | ---- | --------
-**ip** |  required  | IP Address to remove from global IgnoreList | string | 
-
-#### Action Output
-DATA PATH | TYPE | CONTAINS
---------- | ---- | --------
-action\_result\.status | string | 
-
-## action: 'test ip ignore_list'
-Test if an IP is on the Canary's global IgnoreList
-
-Type: **contain**  
-Read only: **False**
-
-#### Action Parameters
-PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
---------- | -------- | ----------- | ---- | --------
-**ip** |  required  | IP Address to add to global IgnoreList | string | 
-
-#### Action Output
-DATA PATH | TYPE | CONTAINS
---------- | ---- | --------
-action\_result\.status | string | 
-action\_result\.is\_whitelist\_enabled | string | 
 
 ## action: 'on poll'
 Ingest unacknowledged incidents from Canary
@@ -123,6 +74,72 @@ action\_result\.summary | string |
 action\_result\.message | string | 
 summary\.total\_objects | numeric | 
 summary\.total\_objects\_successful | numeric |   
+
+## action: 'add ip ignorelist'
+Add new IP to Canary global Ignore List
+
+Type: **contain**  
+Read only: **False**
+
+#### Action Parameters
+PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
+--------- | -------- | ----------- | ---- | --------
+**ip\_address** |  required  | IP Address to add to global Ignore List | string |  `ip` 
+
+#### Action Output
+DATA PATH | TYPE | CONTAINS
+--------- | ---- | --------
+action\_result\.status | string | 
+action\_result\.data\.\* | string | 
+action\_result\.message | string | 
+summary\.total\_objects | numeric | 
+summary\.total\_objects\_successful | numeric | 
+action\_result\.summary | string | 
+action\_result\.parameter\.ip\_address | string |  `ip`   
+
+## action: 'remove ip ignorelist'
+Remove IP from Canary global IgnoreList
+
+Type: **contain**  
+Read only: **False**
+
+#### Action Parameters
+PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
+--------- | -------- | ----------- | ---- | --------
+**ip\_address** |  required  | IP Address to remove from global Ignore List | string |  `ip` 
+
+#### Action Output
+DATA PATH | TYPE | CONTAINS
+--------- | ---- | --------
+action\_result\.status | string | 
+action\_result\.data\.\* | string | 
+action\_result\.message | string | 
+summary\.total\_objects | numeric | 
+summary\.total\_objects\_successful | numeric | 
+action\_result\.summary | string | 
+action\_result\.parameter\.ip\_address | string |  `ip`   
+
+## action: 'test ip ignorelist'
+Test if IP has been globally ignored
+
+Type: **investigate**  
+Read only: **True**
+
+#### Action Parameters
+PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
+--------- | -------- | ----------- | ---- | --------
+**ip\_address** |  required  | IP Address to test on global Ignore List | string |  `ip` 
+
+#### Action Output
+DATA PATH | TYPE | CONTAINS
+--------- | ---- | --------
+action\_result\.status | string | 
+action\_result\.data\.\* | string | 
+action\_result\.message | string | 
+summary\.total\_objects | numeric | 
+summary\.total\_objects\_successful | numeric | 
+action\_result\.summary | string | 
+action\_result\.parameter\.ip\_address | string |  `ip`   
 
 ## action: 'list incidents'
 Get the list of existing Canary Incidents
