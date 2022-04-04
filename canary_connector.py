@@ -15,13 +15,14 @@
 #
 #
 # Phantom App imports
-import phantom.app as phantom
-from phantom.base_connector import BaseConnector
-from phantom.action_result import ActionResult
-
-import requests
 import json
+import sys
+
+import phantom.app as phantom
+import requests
 from bs4 import BeautifulSoup
+from phantom.action_result import ActionResult
+from phantom.base_connector import BaseConnector
 
 
 class RetVal(tuple):
@@ -68,7 +69,7 @@ class CanaryConnector(BaseConnector):
         message = "Status Code: {0}. Data from server:\n{1}\n".format(status_code,
                 error_text)
 
-        message = message.replace(u'{', '{{').replace(u'}', '}}')
+        message = message.replace('{', '{{').replace('}', '}}')
 
         return RetVal(action_result.set_status(phantom.APP_ERROR, message), None)
 
@@ -86,7 +87,7 @@ class CanaryConnector(BaseConnector):
 
         # You should process the error returned in the json
         message = "Error from server. Status Code: {0} Data from server: {1}".format(
-                r.status_code, r.text.replace(u'{', '{{').replace(u'}', '}}'))
+                r.status_code, r.text.replace('{', '{{').replace('}', '}}'))
 
         return RetVal(action_result.set_status(phantom.APP_ERROR, message), None)
 
@@ -183,7 +184,91 @@ class CanaryConnector(BaseConnector):
         # For now return Error with a message, in case of success we don't set the message, but use the summary
         # return action_result.set_status(phantom.APP_ERROR, "Action not yet implemented")
 
+    def _handle_is_ip_ignored(self, param):
+
+        # Implement the handler here
+        # use self.save_progress(...) to send progress messages back to the platform
+        self.save_progress("In action handler for: {0}".format(self.get_action_identifier()))
+
+        # Add an action result object to self (BaseConnector) to represent the action for this param
+        action_result = self.add_action_result(ActionResult(dict(param)))
+
+        endpoint = '/settings/is_ip_whitelisted'
+
+        payload = {
+            'src_ip': param['ip_address']
+        }
+
+        self.save_progress("Connecting to endpoint")
+        # Make rest call
+
+        ret_val, response = self._make_rest_call(endpoint, action_result, headers=None, method="get", data=payload)
+
+        if response['is_ip_ignored']:
+            return action_result.set_status(phantom.APP_SUCCESS, "IP is on global IgnoreList")
+        elif not response['is_ip_ignored']:
+            return action_result.set_status(phantom.APP_SUCCESS, "IP is NOT on global IgnoreList")
+        elif not response['is_whitelist_enabled']:
+            return action_result.set_status(phantom.APP_SUCCESS, "IgnoreList is NOT enabled!")
+        else:
+            return action_result.set_status(phantom.APP_ERROR, "Error while communicating with Canary API")
+
+    def _handle_remove_ignored_ip(self, param):
+
+        # Implement the handler here
+        # use self.save_progress(...) to send progress messages back to the platform
+        self.save_progress("In action handler for: {0}".format(self.get_action_identifier()))
+
+        # Add an action result object to self (BaseConnector) to represent the action for this param
+        action_result = self.add_action_result(ActionResult(dict(param)))
+
+        endpoint = '/settings/whitelisting/remove_whitelist_ip'
+
+        payload = {
+            'src_ip': param['ip_address']
+        }
+
+        self.save_progress("Connecting to endpoint")
+        # Make rest call
+
+        ret_val, response = self._make_rest_call(endpoint, action_result, headers=None, method="post", data=payload)
+
+        if response['result'] == "success":
+            return action_result.set_status(phantom.APP_SUCCESS, "Successfully removed IP from global IgnoreList")
+        else:
+            return action_result.set_status(phantom.APP_ERROR, "Error while communicating with Canary API")
+
+    def _handle_add_ignore_list(self, param):
+
+        # Implement the handler here
+        # use self.save_progress(...) to send progress messages back to the platform
+        self.save_progress("In action handler for: {0}".format(self.get_action_identifier()))
+
+        # Add an action result object to self (BaseConnector) to represent the action for this param
+        action_result = self.add_action_result(ActionResult(dict(param)))
+
+        endpoint = '/settings/whitelist_ip_port'
+
+        # Add user data
+        payload = {
+            'src_ip': param['ip_address']
+        }
+
+        self.save_progress("Connecting to endpoint")
+        # Make rest call
+
+        ret_val, response = self._make_rest_call(endpoint, action_result, headers=None, method="post", data=payload)
+
+        if response['result'] == "success":
+            return action_result.set_status(phantom.APP_SUCCESS, "Successfully added IP to global IgnoreList")
+        else:
+            return action_result.set_status(phantom.APP_ERROR, "Error while communicating with Canary API")
+
     def _handle_list_incidents(self, param):
+
+        # Implement the handler here
+        # use self.save_progress(...) to send progress messages back to the platform
+        self.save_progress("In action handler for: {0}".format(self.get_action_identifier()))
 
         # Add an action result object to self (BaseConnector) to represent the action for this param
         action_result = self.add_action_result(ActionResult(dict(param)))
@@ -199,9 +284,8 @@ class CanaryConnector(BaseConnector):
         if incidentState == "unacknowledged":
             endpoint = "/incidents/unacknowledged"
 
-        self.save_progress("Connecting to endpoint")
         # make rest call
-
+        self.save_progress("Connecting to endpoint")
         ret_val, response = self._make_rest_call(endpoint, action_result, headers=None, method="get")
 
         if (phantom.is_fail(ret_val)):
@@ -307,6 +391,7 @@ class CanaryConnector(BaseConnector):
 
         incident = param['incident']
         params = {'incident': incident}
+        self.save_progress("Connecting to endpoint")
 
         incidentState = param['incident_state']
         if incidentState == "acknowledge":
@@ -350,6 +435,15 @@ class CanaryConnector(BaseConnector):
 
         if action_id == 'test_connectivity':
             ret_val = self._handle_test_connectivity(param)
+
+        elif action_id == 'add_ignore_list':
+            ret_val = self._handle_add_ignore_list(param)
+
+        elif action_id == 'remove_ignored_ip':
+            ret_val = self._handle_remove_ignored_ip(param)
+
+        elif action_id == 'is_ip_ignored':
+            ret_val = self._handle_is_ip_ignored(param)
 
         elif action_id == 'on_poll':
             ret_val = self._handle_on_poll(param)
@@ -395,8 +489,9 @@ class CanaryConnector(BaseConnector):
 
 if __name__ == '__main__':
 
-    import pudb
     import argparse
+
+    import pudb
 
     pudb.set_trace()
 
@@ -405,12 +500,14 @@ if __name__ == '__main__':
     argparser.add_argument('input_test_json', help='Input Test JSON file')
     argparser.add_argument('-u', '--username', help='username', required=False)
     argparser.add_argument('-p', '--password', help='password', required=False)
+    argparser.add_argument('-v', '--verify', action='store_true', help='verify', required=False, default=False)
 
     args = argparser.parse_args()
     session_id = None
 
     username = args.username
     password = args.password
+    verify = args.verify
 
     if (username is not None and password is None):
 
@@ -421,8 +518,8 @@ if __name__ == '__main__':
     if (username and password):
         login_url = BaseConnector._get_phantom_base_url() + "login"
         try:
-            print ("Accessing the Login page")
-            r = requests.get(login_url, verify=False)
+            print("Accessing the Login page")
+            r = requests.get(login_url, verify=verify, timeout=60)
             csrftoken = r.cookies['csrftoken']
 
             data = dict()
@@ -434,17 +531,17 @@ if __name__ == '__main__':
             headers['Cookie'] = 'csrftoken=' + csrftoken
             headers['Referer'] = login_url
 
-            print ("Logging into Platform to get the session id")
-            r2 = requests.post(login_url, verify=False, data=data, headers=headers)
+            print("Logging into Platform to get the session id")
+            r2 = requests.post(login_url, verify=verify, timeout=60, data=data, headers=headers)
             session_id = r2.cookies['sessionid']
         except Exception as e:
-            print ("Unable to get session id from the platform. Error: " + str(e))
-            exit(1)
+            print(("Unable to get session id from the platform. Error: " + str(e)))
+            sys.exit(1)
 
     with open(args.input_test_json) as f:
         in_json = f.read()
         in_json = json.loads(in_json)
-        print(json.dumps(in_json, indent=4))
+        print((json.dumps(in_json, indent=4)))
 
         connector = CanaryConnector()
         connector.print_progress_message = True
@@ -454,6 +551,6 @@ if __name__ == '__main__':
             connector._set_csrf_info(csrftoken, headers['Referer'])
 
         ret_val = connector._handle_action(json.dumps(in_json), None)
-        print (json.dumps(json.loads(ret_val), indent=4))
+        print((json.dumps(json.loads(ret_val), indent=4)))
 
-    exit(0)
+    sys.exit(0)
