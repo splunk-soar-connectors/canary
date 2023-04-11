@@ -389,8 +389,10 @@ class CanaryConnector(BaseConnector):
         # Add an action result object to self (BaseConnector) to represent the action for this param
         action_result = self.add_action_result(ActionResult(dict(param)))
 
-        incident = param['incident']
-        params = {'incident': incident}
+        payload = {
+            'incident': param['incident']
+        }
+
         self.save_progress("Connecting to endpoint")
 
         incidentState = param['incident_state']
@@ -403,7 +405,7 @@ class CanaryConnector(BaseConnector):
         # optional_parameter = param.get('optional_parameter', 'default_value')
 
         # make rest call
-        ret_val, response = self._make_rest_call(endpoint, action_result, params=params, headers=None, method="post")
+        ret_val, response = self._make_rest_call(endpoint, action_result, headers=None, method="post", data=payload)
 
         if (phantom.is_fail(ret_val)):
             return action_result.get_status()
