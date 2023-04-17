@@ -66,7 +66,7 @@
             "read_only": false,
             "parameters": {
                 "incident": {
-                    "description": "The incident key of an existing Incident",
+                    "description": "The incident key of an existing incident",
                     "data_type": "string",
                     "required": true,
                     "order": 0
