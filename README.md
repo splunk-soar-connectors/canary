@@ -2,11 +2,11 @@
 # Canary for SOAR
 
 Publisher: Splunk Community  
-Connector Version: 2\.0\.0  
+Connector Version: 2.1.0  
 Product Vendor: ThinkST  
 Product Name: Canary  
-Product Version Supported (regex): "\.\*"  
-Minimum Product Version: 5\.1\.0  
+Product Version Supported (regex): ".\*"  
+Minimum Product Version: 5.5.0  
 
 This app supports ingestion and investigative actions on the ThinkST Canary API Service
 
@@ -15,8 +15,8 @@ The below configuration variables are required for this Connector to operate.  T
 
 VARIABLE | REQUIRED | TYPE | DESCRIPTION
 -------- | -------- | ---- | -----------
-**domain** |  required  | string | Domain used for Canary Website\. For example \(https\://\*domain\*\.canary\.tools\)
-**api\_key** |  required  | password | API Key from Canary Website
+**domain** |  required  | string | Domain used for Canary Website. For example (https://\*domain\*.canary.tools)
+**api_key** |  required  | password | API Key from Canary Website
 
 ### Supported Actions  
 [test connectivity](#action-test-connectivity) - Validate the asset configuration for connectivity using supplied configuration  
@@ -60,20 +60,20 @@ Read only: **False**
 #### Action Parameters
 PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 --------- | -------- | ----------- | ---- | --------
-**incident** |  required  | The incident key of an existing Incident | string | 
-**incident\_state** |  required  | State to make incident | string | 
+**incident** |  required  | The incident key of an existing incident | string | 
+**incident_state** |  required  | State to make incident | string | 
 
 #### Action Output
-DATA PATH | TYPE | CONTAINS
---------- | ---- | --------
-action\_result\.status | string | 
-action\_result\.parameter\.incident | string | 
-action\_result\.parameter\.incident\_state | string | 
-action\_result\.data | string | 
-action\_result\.summary | string | 
-action\_result\.message | string | 
-summary\.total\_objects | numeric | 
-summary\.total\_objects\_successful | numeric |   
+DATA PATH | TYPE | CONTAINS | EXAMPLE VALUES
+--------- | ---- | -------- | --------------
+action_result.status | string |  |   success  failed 
+action_result.parameter.incident | string |  |  
+action_result.parameter.incident_state | string |  |  
+action_result.data | string |  |  
+action_result.summary | string |  |  
+action_result.message | string |  |  
+summary.total_objects | numeric |  |  
+summary.total_objects_successful | numeric |  |    
 
 ## action: 'add ip ignorelist'
 Add new IP to Canary global Ignore List
@@ -84,18 +84,18 @@ Read only: **False**
 #### Action Parameters
 PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 --------- | -------- | ----------- | ---- | --------
-**ip\_address** |  required  | IP Address to add to global Ignore List | string |  `ip` 
+**ip_address** |  required  | IP Address to add to global Ignore List | string |  `ip` 
 
 #### Action Output
-DATA PATH | TYPE | CONTAINS
---------- | ---- | --------
-action\_result\.status | string | 
-action\_result\.data\.\* | string | 
-action\_result\.message | string | 
-summary\.total\_objects | numeric | 
-summary\.total\_objects\_successful | numeric | 
-action\_result\.summary | string | 
-action\_result\.parameter\.ip\_address | string |  `ip`   
+DATA PATH | TYPE | CONTAINS | EXAMPLE VALUES
+--------- | ---- | -------- | --------------
+action_result.status | string |  |   success  failed 
+action_result.data.\* | string |  |  
+action_result.message | string |  |  
+summary.total_objects | numeric |  |  
+summary.total_objects_successful | numeric |  |  
+action_result.summary | string |  |  
+action_result.parameter.ip_address | string |  `ip`  |    
 
 ## action: 'remove ip ignorelist'
 Remove IP from Canary global IgnoreList
@@ -106,18 +106,18 @@ Read only: **False**
 #### Action Parameters
 PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 --------- | -------- | ----------- | ---- | --------
-**ip\_address** |  required  | IP Address to remove from global Ignore List | string |  `ip` 
+**ip_address** |  required  | IP Address to remove from global Ignore List | string |  `ip` 
 
 #### Action Output
-DATA PATH | TYPE | CONTAINS
---------- | ---- | --------
-action\_result\.status | string | 
-action\_result\.data\.\* | string | 
-action\_result\.message | string | 
-summary\.total\_objects | numeric | 
-summary\.total\_objects\_successful | numeric | 
-action\_result\.summary | string | 
-action\_result\.parameter\.ip\_address | string |  `ip`   
+DATA PATH | TYPE | CONTAINS | EXAMPLE VALUES
+--------- | ---- | -------- | --------------
+action_result.status | string |  |   success  failed 
+action_result.data.\* | string |  |  
+action_result.message | string |  |  
+summary.total_objects | numeric |  |  
+summary.total_objects_successful | numeric |  |  
+action_result.summary | string |  |  
+action_result.parameter.ip_address | string |  `ip`  |    
 
 ## action: 'test ip ignorelist'
 Test if IP has been globally ignored
@@ -128,18 +128,18 @@ Read only: **True**
 #### Action Parameters
 PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 --------- | -------- | ----------- | ---- | --------
-**ip\_address** |  required  | IP Address to test on global Ignore List | string |  `ip` 
+**ip_address** |  required  | IP Address to test on global Ignore List | string |  `ip` 
 
 #### Action Output
-DATA PATH | TYPE | CONTAINS
---------- | ---- | --------
-action\_result\.status | string | 
-action\_result\.data\.\* | string | 
-action\_result\.message | string | 
-summary\.total\_objects | numeric | 
-summary\.total\_objects\_successful | numeric | 
-action\_result\.summary | string | 
-action\_result\.parameter\.ip\_address | string |  `ip`   
+DATA PATH | TYPE | CONTAINS | EXAMPLE VALUES
+--------- | ---- | -------- | --------------
+action_result.status | string |  |   success  failed 
+action_result.data.\* | string |  |  
+action_result.message | string |  |  
+summary.total_objects | numeric |  |  
+summary.total_objects_successful | numeric |  |  
+action_result.summary | string |  |  
+action_result.parameter.ip_address | string |  `ip`  |    
 
 ## action: 'list incidents'
 Get the list of existing Canary Incidents
@@ -150,84 +150,87 @@ Read only: **True**
 #### Action Parameters
 PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 --------- | -------- | ----------- | ---- | --------
-**incident\_state** |  required  | State of incidents to list | string | 
+**incident_state** |  required  | State of incidents to list | string | 
 
 #### Action Output
-DATA PATH | TYPE | CONTAINS
---------- | ---- | --------
-action\_result\.status | string | 
-action\_result\.parameter\.incident\_state | string | 
-action\_result\.data\.\*\.devices\.\*\.description\.acknowledged | string | 
-action\_result\.data\.\*\.devices\.\*\.description\.created | string | 
-action\_result\.data\.\*\.devices\.\*\.description\.created\_std | string | 
-action\_result\.data\.\*\.devices\.\*\.description\.description | string | 
-action\_result\.data\.\*\.devices\.\*\.description\.dst\_host | string |  `ip` 
-action\_result\.data\.\*\.devices\.\*\.description\.dst\_port | string | 
-action\_result\.data\.\*\.devices\.\*\.description\.events\.\*\.HOSTNAME | string |  `ip`  `host name` 
-action\_result\.data\.\*\.devices\.\*\.description\.events\.\*\.PASSWORD | string | 
-action\_result\.data\.\*\.devices\.\*\.description\.events\.\*\.PATH | string | 
-action\_result\.data\.\*\.devices\.\*\.description\.events\.\*\.SETTINGS | string | 
-action\_result\.data\.\*\.devices\.\*\.description\.events\.\*\.SKIN | string | 
-action\_result\.data\.\*\.devices\.\*\.description\.events\.\*\.USERAGENT | string | 
-action\_result\.data\.\*\.devices\.\*\.description\.events\.\*\.USERNAME | string |  `user name` 
-action\_result\.data\.\*\.devices\.\*\.description\.events\.\*\.timestamp | numeric | 
-action\_result\.data\.\*\.devices\.\*\.description\.events\.\*\.timestamp\_std | string | 
-action\_result\.data\.\*\.devices\.\*\.description\.events\_count | string | 
-action\_result\.data\.\*\.devices\.\*\.description\.ip\_address | string | 
-action\_result\.data\.\*\.devices\.\*\.description\.ippers | string | 
-action\_result\.data\.\*\.devices\.\*\.description\.local\_time | string | 
-action\_result\.data\.\*\.devices\.\*\.description\.logtype | string | 
-action\_result\.data\.\*\.devices\.\*\.description\.mac\_address | string | 
-action\_result\.data\.\*\.devices\.\*\.description\.name | string | 
-action\_result\.data\.\*\.devices\.\*\.description\.node\_id | string | 
-action\_result\.data\.\*\.devices\.\*\.description\.notified | string | 
-action\_result\.data\.\*\.devices\.\*\.description\.src\_host | string |  `ip` 
-action\_result\.data\.\*\.devices\.\*\.description\.src\_host\_reverse | string | 
-action\_result\.data\.\*\.devices\.\*\.description\.src\_port | string | 
-action\_result\.data\.\*\.devices\.\*\.id | string | 
-action\_result\.data\.\*\.devices\.\*\.summary | string | 
-action\_result\.data\.\*\.devices\.\*\.updated | string | 
-action\_result\.data\.\*\.devices\.\*\.updated\_id | numeric | 
-action\_result\.data\.\*\.devices\.\*\.updated\_std | string | 
-action\_result\.data\.\*\.feed | string | 
-action\_result\.data\.\*\.incidents\.\*\.description\.acknowledged | string | 
-action\_result\.data\.\*\.incidents\.\*\.description\.created | string | 
-action\_result\.data\.\*\.incidents\.\*\.description\.created\_std | string | 
-action\_result\.data\.\*\.incidents\.\*\.description\.description | string | 
-action\_result\.data\.\*\.incidents\.\*\.description\.dst\_host | string |  `ip` 
-action\_result\.data\.\*\.incidents\.\*\.description\.dst\_port | string | 
-action\_result\.data\.\*\.incidents\.\*\.description\.events\.\*\.HOSTNAME | string |  `ip`  `host name` 
-action\_result\.data\.\*\.incidents\.\*\.description\.events\.\*\.PASSWORD | string | 
-action\_result\.data\.\*\.incidents\.\*\.description\.events\.\*\.PATH | string | 
-action\_result\.data\.\*\.incidents\.\*\.description\.events\.\*\.SETTINGS | string | 
-action\_result\.data\.\*\.incidents\.\*\.description\.events\.\*\.SKIN | string | 
-action\_result\.data\.\*\.incidents\.\*\.description\.events\.\*\.USERAGENT | string | 
-action\_result\.data\.\*\.incidents\.\*\.description\.events\.\*\.USERNAME | string |  `user name` 
-action\_result\.data\.\*\.incidents\.\*\.description\.events\.\*\.timestamp | numeric | 
-action\_result\.data\.\*\.incidents\.\*\.description\.events\.\*\.timestamp\_std | string | 
-action\_result\.data\.\*\.incidents\.\*\.description\.events\_count | string | 
-action\_result\.data\.\*\.incidents\.\*\.description\.ip\_address | string | 
-action\_result\.data\.\*\.incidents\.\*\.description\.ippers | string | 
-action\_result\.data\.\*\.incidents\.\*\.description\.local\_time | string | 
-action\_result\.data\.\*\.incidents\.\*\.description\.logtype | string | 
-action\_result\.data\.\*\.incidents\.\*\.description\.mac\_address | string | 
-action\_result\.data\.\*\.incidents\.\*\.description\.name | string | 
-action\_result\.data\.\*\.incidents\.\*\.description\.node\_id | string | 
-action\_result\.data\.\*\.incidents\.\*\.description\.notified | string | 
-action\_result\.data\.\*\.incidents\.\*\.description\.src\_host | string |  `ip` 
-action\_result\.data\.\*\.incidents\.\*\.description\.src\_host\_reverse | string | 
-action\_result\.data\.\*\.incidents\.\*\.description\.src\_port | string | 
-action\_result\.data\.\*\.incidents\.\*\.id | string | 
-action\_result\.data\.\*\.incidents\.\*\.summary | string | 
-action\_result\.data\.\*\.incidents\.\*\.updated | string | 
-action\_result\.data\.\*\.incidents\.\*\.updated\_id | numeric | 
-action\_result\.data\.\*\.incidents\.\*\.updated\_std | string | 
-action\_result\.data\.\*\.max\_updated\_id | numeric | 
-action\_result\.data\.\*\.result | string | 
-action\_result\.data\.\*\.updated | string | 
-action\_result\.data\.\*\.updated\_std | string | 
-action\_result\.data\.\*\.updated\_timestamp | numeric | 
-action\_result\.summary\.count | numeric | 
-action\_result\.message | string | 
-summary\.total\_objects | numeric | 
-summary\.total\_objects\_successful | numeric | 
+DATA PATH | TYPE | CONTAINS | EXAMPLE VALUES
+--------- | ---- | -------- | --------------
+action_result.status | string |  |   success  failed 
+action_result.parameter.incident_state | string |  |   acknowledged 
+action_result.data.\*.devices.\*.description.acknowledged | string |  |   True 
+action_result.data.\*.devices.\*.description.created | string |  |   1540514762 
+action_result.data.\*.devices.\*.description.created_std | string |  |   2018-10-26 00:46:02 UTC+0000 
+action_result.data.\*.devices.\*.description.description | string |  |   HTTP Login Attempt 
+action_result.data.\*.devices.\*.description.dst_host | string |  `ip`  |   122.122.122.122 
+action_result.data.\*.devices.\*.description.dst_port | string |  |   80 
+action_result.data.\*.devices.\*.description.events.\*.HOSTNAME | string |  `ip`  `host name`  |   122.122.122.122 
+action_result.data.\*.devices.\*.description.events.\*.PASSWORD | string |  |   root 
+action_result.data.\*.devices.\*.description.events.\*.PATH | string |  |   /folder 
+action_result.data.\*.devices.\*.description.events.\*.SETTINGS | string |  |  
+action_result.data.\*.devices.\*.description.events.\*.SKIN | string |  |   vmware 
+action_result.data.\*.devices.\*.description.events.\*.USERAGENT | string |  |   Mozilla/5.0 (Macintosh; Intel Mac OS X 10.13; rv:62.0) Gecko/20100101 Firefox/62.0 
+action_result.data.\*.devices.\*.description.events.\*.USERNAME | string |  `user name`  |   root 
+action_result.data.\*.devices.\*.description.events.\*.timestamp | numeric |  |   1540514762 
+action_result.data.\*.devices.\*.description.events.\*.timestamp_std | string |  |   2018-10-26 00:46:02 UTC+0000 
+action_result.data.\*.devices.\*.description.events_count | string |  |   1 
+action_result.data.\*.devices.\*.description.ip_address | string |  |  
+action_result.data.\*.devices.\*.description.ippers | string |  |  
+action_result.data.\*.devices.\*.description.local_time | string |  |   2018-10-26 00:46:01 
+action_result.data.\*.devices.\*.description.logtype | string |  |   3001 
+action_result.data.\*.devices.\*.description.mac_address | string |  |  
+action_result.data.\*.devices.\*.description.name | string |  |   ATHQESXP01 
+action_result.data.\*.devices.\*.description.node_id | string |  |   000000002f391f1d 
+action_result.data.\*.devices.\*.description.notified | string |  |   False 
+action_result.data.\*.devices.\*.description.src_host | string |  `ip`  |   122.122.122.122 
+action_result.data.\*.devices.\*.description.src_host_reverse | string |  |  
+action_result.data.\*.devices.\*.description.src_port | string |  |   60222 
+action_result.data.\*.devices.\*.id | string |  |   incident:httplogin:b4a7013dfe899ce773353c5c:122.122.122.122:1540514762 
+action_result.data.\*.devices.\*.summary | string |  |   HTTP Login Attempt 
+action_result.data.\*.devices.\*.updated | string |  |   Fri, 26 Oct 2018 00:46:48 GMT 
+action_result.data.\*.devices.\*.updated_id | numeric |  |   71 
+action_result.data.\*.devices.\*.updated_std | string |  |   2018-10-26 00:46:48 UTC+0000 
+action_result.data.\*.feed | string |  |   Acknowledged Incidents 
+action_result.data.\*.incidents.\*.description.acknowledged | string |  |   True 
+action_result.data.\*.incidents.\*.description.created | string |  |   1540514762 
+action_result.data.\*.incidents.\*.description.created_std | string |  |   2018-10-26 00:46:02 UTC+0000 
+action_result.data.\*.incidents.\*.description.description | string |  |   HTTP Login Attempt 
+action_result.data.\*.incidents.\*.description.dst_host | string |  `ip`  |   122.122.122.122 
+action_result.data.\*.incidents.\*.description.dst_port | string |  |   80 
+action_result.data.\*.incidents.\*.description.events.\*.HOSTNAME | string |  `ip`  `host name`  |   122.122.122.122 
+action_result.data.\*.incidents.\*.description.events.\*.PASSWORD | string |  |   root 
+action_result.data.\*.incidents.\*.description.events.\*.PATH | string |  |   /folder 
+action_result.data.\*.incidents.\*.description.events.\*.SETTINGS | string |  |   userid=tsv.dsnd@at.govt.nz,username=,totp_enable=False,sensitive_data_masking_enable=True,auth_token_enable=False,incident_webhooks_enable=False,slack_incident_webhook=,hipchat_integration_url=,generic_incident_webhook=,email_notification_enable=True,email_notification_addresses=tsb.dnsdk@at.govt.nz,tvsb.bsysj@at.govt.nz,sms_notification_enable=False,summary_email_enable=True,summary_email_addresses=ndsjdn.dsnsn@at.govt.nz, bajhjdnj@at.govt.nz,notify_settings_change_enable=True,notify_device_settings_change_enable=True,whitelist_enable=False,whitelist_ips=,whitelist_oids_enable=False,whitelist_oids=,ssh_credential_watches_enable=False,ssh_credential_watches=,ssh_credential_watch_only=False,sms_notification_numbers=,update_automatically_enable=True,canarytokens_alerts_enable=True,canarytokens_user_domains_enable=False,canarytokens_user_domains=,canarytokens_webroot_enable=False,canarytokens_webroot=<html><body><h1>It works!</h1>
+<p>This is the default web page for this server.</p>
+<p>The web server software is running but no content has been added, yet.</p>
+</body></html>,smtp_host=,smtp_port=,smtp_from_address=,smtp_username=,smtp_password=,smtp_starttls=,syslog_fwd_enable=False,syslog_fwd_remote_host=,syslog_fwd_remote_port=,syslog_fwd_protocol=tcp,syslog_fwd_fmt=custom,syslog_fwd_facility=local0,syslog_fwd_priority=emerg 
+action_result.data.\*.incidents.\*.description.events.\*.SKIN | string |  |   vmware 
+action_result.data.\*.incidents.\*.description.events.\*.USERAGENT | string |  |   Mozilla/5.0 (Macintosh; Intel Mac OS X 10.13; rv:62.0) Gecko/20100101 Firefox/62.0 
+action_result.data.\*.incidents.\*.description.events.\*.USERNAME | string |  `user name`  |   root 
+action_result.data.\*.incidents.\*.description.events.\*.timestamp | numeric |  |   1540514762 
+action_result.data.\*.incidents.\*.description.events.\*.timestamp_std | string |  |   2018-10-26 00:46:02 UTC+0000 
+action_result.data.\*.incidents.\*.description.events_count | string |  |   1 
+action_result.data.\*.incidents.\*.description.ip_address | string |  |  
+action_result.data.\*.incidents.\*.description.ippers | string |  |  
+action_result.data.\*.incidents.\*.description.local_time | string |  |   2018-10-26 00:46:01 
+action_result.data.\*.incidents.\*.description.logtype | string |  |   3001 
+action_result.data.\*.incidents.\*.description.mac_address | string |  |  
+action_result.data.\*.incidents.\*.description.name | string |  |   ATHQESXP01 
+action_result.data.\*.incidents.\*.description.node_id | string |  |   000000002f391f1d 
+action_result.data.\*.incidents.\*.description.notified | string |  |   False 
+action_result.data.\*.incidents.\*.description.src_host | string |  `ip`  |   122.122.122.122 
+action_result.data.\*.incidents.\*.description.src_host_reverse | string |  |  
+action_result.data.\*.incidents.\*.description.src_port | string |  |   60222 
+action_result.data.\*.incidents.\*.id | string |  |   incident:httplogin:b4a7013dfe899ce773353c5c:122.122.122.122:1540514762 
+action_result.data.\*.incidents.\*.summary | string |  |   HTTP Login Attempt 
+action_result.data.\*.incidents.\*.updated | string |  |   Fri, 26 Oct 2018 00:46:48 GMT 
+action_result.data.\*.incidents.\*.updated_id | numeric |  |   71 
+action_result.data.\*.incidents.\*.updated_std | string |  |   2018-10-26 00:46:48 UTC+0000 
+action_result.data.\*.max_updated_id | numeric |  |   79 
+action_result.data.\*.result | string |  |   success 
+action_result.data.\*.updated | string |  |   Sun, 28 Oct 2018 22:33:20 GMT 
+action_result.data.\*.updated_std | string |  |   2018-10-28 22:33:20 UTC+0000 
+action_result.data.\*.updated_timestamp | numeric |  |   1540766000 
+action_result.summary.count | numeric |  |   5 
+action_result.message | string |  |   Count: 5 
+summary.total_objects | numeric |  |   1 
+summary.total_objects_successful | numeric |  |   1 
