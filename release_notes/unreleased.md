@@ -1,2 +1,2 @@
 **Unreleased**
-* Fixed update" incident action [PAPP-30067]
+* Fixed update incident action [PAPP-30067]
