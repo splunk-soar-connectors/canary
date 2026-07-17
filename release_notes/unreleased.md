@@ -1,1 +1,4 @@
 **Unreleased**
+
+* Moved the Canary API key from the request URL to the supported authentication header.
+* Replaced transport exception details with a fixed non-sensitive connection error.
