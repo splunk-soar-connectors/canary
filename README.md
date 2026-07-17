@@ -1,9 +1,9 @@
 # Canary for SOAR
 
-Publisher: Splunk Community \
-Connector Version: 2.1.1 \
-Product Vendor: ThinkST \
-Product Name: Canary \
+Publisher: Splunk Community <br>
+Connector Version: 2.1.1 <br>
+Product Vendor: ThinkST <br>
+Product Name: Canary <br>
 Minimum Product Version: 5.5.0
 
 This app supports ingestion and investigative actions on the ThinkST Canary API Service
@@ -19,19 +19,19 @@ VARIABLE | REQUIRED | TYPE | DESCRIPTION
 
 ### Supported Actions
 
-[test connectivity](#action-test-connectivity) - Validate the asset configuration for connectivity using supplied configuration \
-[on poll](#action-on-poll) - Ingest unacknowledged incidents from Canary \
-[update incident](#action-update-incident) - Acknowledge existing Canary incident \
-[add ip ignorelist](#action-add-ip-ignorelist) - Add new IP to Canary global Ignore List \
-[remove ip ignorelist](#action-remove-ip-ignorelist) - Remove IP from Canary global IgnoreList \
-[test ip ignorelist](#action-test-ip-ignorelist) - Test if IP has been globally ignored \
+[test connectivity](#action-test-connectivity) - Validate the asset configuration for connectivity using supplied configuration <br>
+[on poll](#action-on-poll) - Ingest unacknowledged incidents from Canary <br>
+[update incident](#action-update-incident) - Acknowledge existing Canary incident <br>
+[add ip ignorelist](#action-add-ip-ignorelist) - Add new IP to Canary global Ignore List <br>
+[remove ip ignorelist](#action-remove-ip-ignorelist) - Remove IP from Canary global IgnoreList <br>
+[test ip ignorelist](#action-test-ip-ignorelist) - Test if IP has been globally ignored <br>
 [list incidents](#action-list-incidents) - Get the list of existing Canary Incidents
 
 ## action: 'test connectivity'
 
 Validate the asset configuration for connectivity using supplied configuration
 
-Type: **test** \
+Type: **test** <br>
 Read only: **True**
 
 #### Action Parameters
@@ -46,7 +46,7 @@ No Output
 
 Ingest unacknowledged incidents from Canary
 
-Type: **ingest** \
+Type: **ingest** <br>
 Read only: **True**
 
 #### Action Parameters
@@ -61,7 +61,7 @@ No Output
 
 Acknowledge existing Canary incident
 
-Type: **generic** \
+Type: **generic** <br>
 Read only: **False**
 
 #### Action Parameters
@@ -88,7 +88,7 @@ summary.total_objects_successful | numeric | | |
 
 Add new IP to Canary global Ignore List
 
-Type: **contain** \
+Type: **contain** <br>
 Read only: **False**
 
 #### Action Parameters
@@ -113,7 +113,7 @@ action_result.parameter.ip_address | string | `ip` | |
 
 Remove IP from Canary global IgnoreList
 
-Type: **contain** \
+Type: **contain** <br>
 Read only: **False**
 
 #### Action Parameters
@@ -138,7 +138,7 @@ action_result.parameter.ip_address | string | `ip` | |
 
 Test if IP has been globally ignored
 
-Type: **investigate** \
+Type: **investigate** <br>
 Read only: **True**
 
 #### Action Parameters
@@ -163,7 +163,7 @@ action_result.parameter.ip_address | string | `ip` | |
 
 Get the list of existing Canary Incidents
 
-Type: **investigate** \
+Type: **investigate** <br>
 Read only: **True**
 
 #### Action Parameters
@@ -261,7 +261,7 @@ ______________________________________________________________________
 
 Auto-generated Splunk SOAR Connector documentation.
 
-Copyright 2025 Splunk Inc.
+Copyright 2026 Splunk Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
