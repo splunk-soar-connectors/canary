@@ -1,6 +1,6 @@
 # File: canary_connector.py
 #
-# Copyright (c) 2019-2025 Splunk Inc.
+# Copyright (c) 2019-2026 Splunk Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -121,9 +121,9 @@ class CanaryConnector(BaseConnector):
         config = self.get_config()
         domain = config.get("domain")
 
-        parameters = {"auth_token": self._api_key}
-        if params:
-            parameters = parameters.update(params)
+        parameters = dict(params or {})
+        headers = dict(kwargs.pop("headers", None) or {})
+        headers["X-Canary-Auth-Token"] = self._api_key
 
         resp_json = None
 
@@ -138,13 +138,13 @@ class CanaryConnector(BaseConnector):
         try:
             r = request_func(
                 url,
-                # auth=(username, password),  # basic authentication
                 params=parameters,
+                headers=headers,
                 verify=True,
                 **kwargs,
             )
-        except Exception as e:
-            return RetVal(action_result.set_status(phantom.APP_ERROR, f"Error Connecting to server. Details: {e!s}"), resp_json)
+        except requests.exceptions.RequestException:
+            return RetVal(action_result.set_status(phantom.APP_ERROR, "Unable to connect to the Canary server"), resp_json)
 
         return self._process_response(r, action_result)
 
