@@ -1,7 +1,7 @@
 # Canary for SOAR
 
 Publisher: Splunk Community <br>
-Connector Version: 2.1.1 <br>
+Connector Version: 2.1.2 <br>
 Product Vendor: ThinkST <br>
 Product Name: Canary <br>
 Minimum Product Version: 5.5.0
